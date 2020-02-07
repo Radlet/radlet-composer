@@ -1,0 +1,1 @@
+const String DISCOVERY_URL = "http://xyyz.com";
