@@ -1,1 +1,2 @@
-const String DISCOVERY_URL = "http://xyyz.com";
+const SERVER_URL = "192.168.100.15:8080";
+const String DISCOVERY_ENDPOINT = "/getavailabledevices";
