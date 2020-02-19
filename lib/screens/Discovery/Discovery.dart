@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import './widgets/DeviceListItem.dart';
+import '../../util/apis/discovery.dart';
+import '../../util/data/Device.dart';
 
 class Discovery extends StatefulWidget {
   const Discovery({
@@ -16,18 +18,21 @@ class Discovery extends StatefulWidget {
 }
 
 class DiscoveryState extends State<Discovery> {
-  List<Map<String, String>> devices;
+  List<Device> devices;
 
   @override
   void initState() {
-    devices = new List<Map<String, String>>();
-    devices.add({"id": "A"});
-    devices.add({"id": "B"});
-    devices.add({"id": "C"});
+    devices = new List<Device>();
     super.initState();
+
+    getDiscoveredList().then((fetchedDevices) {
+      updateDeviceList(fetchedDevices);
+    }).catchError((onError) {
+      print("Error fetching device list");
+    });
   }
 
-  void updateDeviceList(List<Map<String, String>> newDeviceList) {
+  void updateDeviceList(List<Device> newDeviceList) {
     // TODO: Add a compasion mechanism
     setState(() {
       devices = newDeviceList;
@@ -42,7 +47,6 @@ class DiscoveryState extends State<Discovery> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("New devices"),
@@ -51,7 +55,7 @@ class DiscoveryState extends State<Discovery> {
           child: new ListView.builder(
               itemCount: devices.length,
               itemBuilder: (BuildContext context, int index) {
-                return new DeviceListItem(deviceID: devices[index]["id"]);
+                return new DeviceListItem(deviceID: devices[index].id);
               })),
     );
   }
