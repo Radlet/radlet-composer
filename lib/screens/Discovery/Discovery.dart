@@ -32,7 +32,6 @@ class DiscoveryState extends State<Discovery> {
       }).catchError((onError) {
         print("Error fetching device list");
       });
-      print("Fetch called");
     });
   }
 
@@ -66,8 +65,11 @@ class DiscoveryState extends State<Discovery> {
               itemCount: devices.length,
               itemBuilder: (BuildContext context, int index) {
                 return new DeviceListItem(
-                    deviceID: devices[index].id,
-                    deviceName: devices[index].name);
+                  id: devices[index].id,
+                  type: devices[index].type,
+                  title: devices[index].title,
+                  description: devices[index].description,
+                );
               })),
     );
   }

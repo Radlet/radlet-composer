@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
 class DeviceListItem extends StatelessWidget {
-  DeviceListItem({this.deviceID, this.deviceName});
+  DeviceListItem({this.id, this.type, this.title, this.description});
 
-  final String deviceID;
-  final String deviceName;
+  final String id;
+  final String type;
+  final String title;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,8 @@ class DeviceListItem extends StatelessWidget {
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             ListTile(
                 leading: Icon(Icons.album),
-                title: Text(this.deviceName),
-                subtitle: Text("Sample device description"))
+                title: Text(this.title),
+                subtitle: Text(this.description))
           ]),
         ),
       ),
