@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import './widgets/DeviceListItem.dart';
 import '../../util/apis/discovery.dart';
@@ -6,11 +8,9 @@ import '../../util/data/Device.dart';
 class Discovery extends StatefulWidget {
   const Discovery({
     Key key,
-    this.placeholder = "No device found",
     this.child,
   }) : super(key: key);
 
-  final String placeholder;
   final Widget child;
 
   @override
@@ -19,17 +19,27 @@ class Discovery extends StatefulWidget {
 
 class DiscoveryState extends State<Discovery> {
   List<Device> devices;
+  var timer;
 
   @override
   void initState() {
     devices = new List<Device>();
     super.initState();
 
-    getDiscoveredList().then((fetchedDevices) {
-      updateDeviceList(fetchedDevices);
-    }).catchError((onError) {
-      print("Error fetching device list");
+    timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+      getDiscoveredList().then((fetchedDevices) {
+        updateDeviceList(fetchedDevices);
+      }).catchError((onError) {
+        print("Error fetching device list");
+      });
+      print("Fetch called");
     });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    timer.cancel();
   }
 
   void updateDeviceList(List<Device> newDeviceList) {
@@ -55,7 +65,9 @@ class DiscoveryState extends State<Discovery> {
           child: new ListView.builder(
               itemCount: devices.length,
               itemBuilder: (BuildContext context, int index) {
-                return new DeviceListItem(deviceID: devices[index].id);
+                return new DeviceListItem(
+                    deviceID: devices[index].id,
+                    deviceName: devices[index].name);
               })),
     );
   }

@@ -7,4 +7,5 @@ Future makePostRequest(String endpoint, Map<String, String> data) {
 
 Future makeGetRequest(String endpoint, Map<String, String> data) {
   return http.get(new Uri.http(SERVER_URL,endpoint));
+  // TODO: catch connection failed exception
 }
