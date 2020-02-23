@@ -21,14 +21,14 @@ The Radlet ecosystem was created keeping *speed* and *flexibility* in mind and t
     <br> 
 
 
-## :octocat: Table of Contents
+## Table of Contents :octocat:
 
 - [Getting Started](#getting_started)
 - [Deployment](#deployment)
 - [Usage](#usage)
 - [Authors](#authors)
 
-## :four_leaf_clover: 1. Getting Started <a name = "getting_started"></a>
+## 1. Getting Started :four_leaf_clover: <a name = "getting_started"></a>
 
 This project uses flutter for cross platform application development. The recommended IDE for development is VS Code which gels nicely with the Flutter SDK. To setup Flutter SDK on your machine, follow the Flutter [docs](https://flutter.dev/docs/get-started/install/linux) accordingly. If **flutter doctor** returns a non zero code then we are good to go.
 
@@ -44,18 +44,18 @@ The build build step is as simple as pressing **F5** while on VS Code. A physica
   
 ---  
 
-## :fire: 2. Deployment <a name = "deployment"></a>
+## 2. Deployment :fire: <a name = "deployment"></a>
 
 Yet to be finalized
 
 ---
 
-## :closed_book: 3. Usage <a name="usage"></a>
+## 3. Usage :closed_book: <a name="usage"></a>
 
 If the Radlet Dock has been deployed successfully on the network, then the app can be used to communicate with the dock and send commands for device orchestration.
 
 ---
 
-## :hammer: 4. Authors <a name = "authors"></a>
+## 4. Authors :hammer: <a name = "authors"></a>
 
 - [@AakashMallik](https://github.com/AakashMallik)  
