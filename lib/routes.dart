@@ -29,7 +29,7 @@ class Routes {
             body1: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
           ),
         ),
-        initialRoute: '/discovery',
+        initialRoute: '/',
         routes: routes));
   }
 }

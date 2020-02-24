@@ -14,10 +14,12 @@ class Discovery extends StatefulWidget {
   final Widget child;
 
   @override
-  State createState() => new DiscoveryState();
+  State createState(){
+    return new _DiscoveryState();
+  }
 }
 
-class DiscoveryState extends State<Discovery> {
+class _DiscoveryState extends State<Discovery> {
   List<Device> devices;
   var timer;
 
@@ -37,8 +39,8 @@ class DiscoveryState extends State<Discovery> {
 
   @override
   void dispose() {
-    super.dispose();
     timer.cancel();
+    super.dispose();
   }
 
   void updateDeviceList(List<Device> newDeviceList) {
