@@ -1,7 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import './widgets/IconContainer.dart';
+import '../../widgets/SignInButton.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen>
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
     super.initState();
 
-    startTime();
+    // startTime();
   }
 
   @override
@@ -57,6 +57,11 @@ class _SplashScreenState extends State<SplashScreen>
                 opacity: _animation,
                 child: new IconContainer(),
               )),
+          new Container(
+            alignment: Alignment.bottomCenter,
+            child: new SignInButton(),
+            padding: EdgeInsets.only(bottom: 64.0),
+          )
         ],
       ),
     );

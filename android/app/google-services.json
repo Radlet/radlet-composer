@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "463273249095",
+    "firebase_url": "https://radlet.firebaseio.com",
+    "project_id": "radlet",
+    "storage_bucket": "radlet.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:463273249095:android:14e8b3d54439e132dde462",
+        "android_client_info": {
+          "package_name": "io.radlet.composer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "463273249095-pr9cue97n68mmk099dqbd82uvjvqfkk6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.radlet.composer",
+            "certificate_hash": "da41bec82c07b4eb8849c7d6662e5e7323cbf9de"
+          }
+        },
+        {
+          "client_id": "463273249095-flgp4btptc1qd6ic0a49rh4stolepn33.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-qJGSZpjDu6QOqYnO1HN2jVgUIPjq9VY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "463273249095-flgp4btptc1qd6ic0a49rh4stolepn33.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

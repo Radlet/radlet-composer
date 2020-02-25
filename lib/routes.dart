@@ -12,7 +12,7 @@ class Routes {
 
   Routes() {
     runApp(new MaterialApp(
-        title: 'Lattice Conductor',
+        title: 'Radlet Composer',
         theme: ThemeData(
           brightness: Brightness.dark,
           primaryColor: Colors.lightBlue[800],

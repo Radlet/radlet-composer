@@ -1,4 +1,4 @@
-package com.example.radlet_composer
+package io.radlet.composer
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity
