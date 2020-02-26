@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:lattice_remote/util/auth/googleAuth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import './widgets/IconContainer.dart';
 import '../../widgets/SignInButton.dart';
 
@@ -21,6 +24,9 @@ class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
   AnimationController _controller;
   Animation _animation;
+  bool loading = true;
+  bool isSignInActive = false;
+  FirebaseUser userData;
 
   @override
   void initState() {
@@ -29,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen>
     _animation = Tween(begin: 0.0, end: 1.0).animate(_controller);
     super.initState();
 
-    // startTime();
+    startTime();
   }
 
   @override
@@ -38,12 +44,41 @@ class _SplashScreenState extends State<SplashScreen>
     super.dispose();
   }
 
+  void _showSignIn() {
+    setState(() {
+      loading = false;
+      isSignInActive = true;
+    });
+  }
+
+  void _signInSuccess(FirebaseUser user) {
+    print(user);
+    print("Sign in successful");
+
+    setState(() {
+      loading = false;
+    });
+    Navigator.of(context).pushReplacementNamed('/home');
+  }
+
   startTime() async {
-    return new Timer(new Duration(seconds: 4), ( ) => Navigator.of(context).pushReplacementNamed('/home'));
+    return new Timer(new Duration(seconds: 3), () {
+      isSignedIn().then((FirebaseUser user) {
+        if (user == null) {
+          _showSignIn();
+        } else {
+          print(user);
+          print("Already Signed in");
+          Navigator.of(context).pushReplacementNamed('/home');
+        }
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    print("loading: $loading");
+
     _controller.forward();
     return Scaffold(
       body: Stack(
@@ -59,7 +94,12 @@ class _SplashScreenState extends State<SplashScreen>
               )),
           new Container(
             alignment: Alignment.bottomCenter,
-            child: new SignInButton(),
+            child: loading
+                ? Text(
+                    "Loading...",
+                    style: TextStyle(fontSize: 16),
+                  )
+                : new SignInButton(onSignInSuccess: _signInSuccess),
             padding: EdgeInsets.only(bottom: 64.0),
           )
         ],
