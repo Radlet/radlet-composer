@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'screens/SplashScreen/index.dart';
 import 'screens/Home/index.dart';
 import 'screens/Discovery/index.dart';
+import 'screens/Settings/index.dart';
 
 class Routes {
   final routes = <String, WidgetBuilder>{
     '/': (BuildContext context) => new SplashScreen(),
     '/home': (BuildContext context) => new Home(),
-    "/discovery": (BuildContext context) => new Discovery()
+    '/discovery': (BuildContext context) => new Discovery(),
+    '/settings': (BuildContext context) => new Settings()
   };
 
   Routes() {

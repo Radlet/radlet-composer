@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:lattice_remote/widgets/CustomDrawer.dart';
 import './widgets/DeviceListItem.dart';
 import '../../util/apis/discovery.dart';
 import '../../util/data/Device.dart';
@@ -14,7 +15,7 @@ class Discovery extends StatefulWidget {
   final Widget child;
 
   @override
-  State createState(){
+  State createState() {
     return new _DiscoveryState();
   }
 }
@@ -59,6 +60,7 @@ class _DiscoveryState extends State<Discovery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: new CustomDrawer(),
       appBar: AppBar(
         title: const Text("New devices"),
       ),
