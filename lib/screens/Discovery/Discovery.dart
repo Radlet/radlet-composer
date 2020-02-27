@@ -33,7 +33,7 @@ class _DiscoveryState extends State<Discovery> {
       getDiscoveredList().then((fetchedDevices) {
         updateDeviceList(fetchedDevices);
       }).catchError((onError) {
-        print("Error fetching device list");
+        print(onError);
       });
     });
   }
