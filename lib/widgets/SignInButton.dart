@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../util/auth/googleAuth.dart';
+import 'package:radlet_composer/util/auth/googleAuth.dart' as auth;
 
 class SignInButton extends StatefulWidget {
   const SignInButton({
@@ -34,7 +34,7 @@ class _SignInButtonState extends State<SignInButton> {
   Widget build(BuildContext context) {
     return OutlineButton(
       onPressed: () {
-        signInWithGoogle().then((FirebaseUser user) {
+        auth.signInWithGoogle().then((FirebaseUser user) {
           widget.onSignInSuccess(user);
         });
       },

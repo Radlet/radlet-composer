@@ -1,1 +1,1 @@
-export './Discovery.dart';
+export 'Discovery.dart';

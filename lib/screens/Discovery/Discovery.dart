@@ -1,10 +1,9 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:lattice_remote/widgets/CustomDrawer.dart';
-import './widgets/DeviceListItem.dart';
-import '../../util/apis/discovery.dart';
-import '../../util/data/Device.dart';
+
+import 'package:radlet_composer/util/apis/discovery.dart';
+import 'package:radlet_composer/util/data/Device.dart';
+import 'widgets/DeviceListItem.dart';
 
 class Discovery extends StatefulWidget {
   const Discovery({
@@ -21,15 +20,15 @@ class Discovery extends StatefulWidget {
 }
 
 class _DiscoveryState extends State<Discovery> {
-  List<Device> devices;
-  var timer;
+  List<Device> _devices;
+  var _timer;
 
   @override
   void initState() {
-    devices = new List<Device>();
+    _devices = new List<Device>();
     super.initState();
 
-    timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
+    _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       getDiscoveredList().then((fetchedDevices) {
         updateDeviceList(fetchedDevices);
       }).catchError((onError) {
@@ -40,39 +39,41 @@ class _DiscoveryState extends State<Discovery> {
 
   @override
   void dispose() {
-    timer.cancel();
+    _timer.cancel();
     super.dispose();
   }
 
   void updateDeviceList(List<Device> newDeviceList) {
     // TODO: Add a compasion mechanism
     setState(() {
-      devices = newDeviceList;
+      _devices = newDeviceList;
     });
   }
 
   void clearDeviceList() {
     setState(() {
-      devices = [];
+      _devices = [];
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: new CustomDrawer(),
       appBar: AppBar(
-        title: const Text("New devices"),
-      ),
+          title: const Text("New Devices"),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context),
+          )),
       body: Center(
           child: new ListView.builder(
-              itemCount: devices.length,
+              itemCount: _devices.length,
               itemBuilder: (BuildContext context, int index) {
                 return new DeviceListItem(
-                  id: devices[index].id,
-                  type: devices[index].type,
-                  title: devices[index].title,
-                  description: devices[index].description,
+                  id: _devices[index].id,
+                  type: _devices[index].type,
+                  title: _devices[index].title,
+                  description: _devices[index].description,
                 );
               })),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'screens/SplashScreen/index.dart';
 import 'screens/Home/index.dart';
 import 'screens/Discovery/index.dart';

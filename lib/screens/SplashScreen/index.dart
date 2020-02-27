@@ -1,1 +1,1 @@
-export './SplashScreen.dart';
+export 'SplashScreen.dart';

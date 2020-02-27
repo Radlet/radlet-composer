@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:lattice_remote/util/auth/googleAuth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import './widgets/IconContainer.dart';
-import '../../widgets/SignInButton.dart';
+import 'package:radlet_composer/util/auth/googleAuth.dart' as auth;
+import 'package:radlet_composer/widgets/CustomIcon.dart';
+import 'package:radlet_composer/widgets/SignInButton.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({
@@ -63,7 +63,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   startTime() async {
     return new Timer(new Duration(seconds: 3), () {
-      isSignedIn().then((FirebaseUser user) {
+      auth.isSignedIn().then((FirebaseUser user) {
         if (user == null) {
           _showSignIn();
         } else {
@@ -77,8 +77,6 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    print("loading: $loading");
-
     _controller.forward();
     return Scaffold(
       body: Stack(
@@ -90,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen>
               alignment: Alignment.center,
               child: FadeTransition(
                 opacity: _animation,
-                child: new IconContainer(),
+                child: new CustomIcon(size: 220),
               )),
           new Container(
             alignment: Alignment.bottomCenter,

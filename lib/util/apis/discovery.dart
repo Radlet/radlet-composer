@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import './helper.dart' as helper;
-import './urls.dart' as urls;
-import '../data/Device.dart';
+import 'helper.dart' as helper;
+import 'urls.dart' as urls;
+import 'package:radlet_composer/util/data/Device.dart';
 
 Future<List<Device>> getDiscoveredList(
     [Map<String, String> data = const {}]) async {
   try {
     var response = await helper.makeGetRequest(urls.DISCOVERY_ENDPOINT, data);
     if (response.statusCode != 200) {
-      return Future.error("Server error $response.statusCode");
+      return Future.error("Server Error $response.statusCode");
     }
 
     var parsedJson = jsonDecode(response.body);
@@ -23,6 +23,6 @@ Future<List<Device>> getDiscoveredList(
     }
     return devices;
   } catch (error) {
-    return Future.error("Unable to reach server");
+    return Future.error("Dock Unreachable");
   }
 }
