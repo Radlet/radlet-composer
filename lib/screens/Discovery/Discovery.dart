@@ -72,10 +72,16 @@ class _DiscoveryState extends State<Discovery> {
     Widget _child;
     switch (_fetchStatus) {
       case FetchStatus.NONE:
-        _child = Column(
+        _child = Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[Text("Searching")],
+          children: <Widget>[
+            Icon(Icons.graphic_eq),
+            Padding(
+              padding: EdgeInsets.only(left: 12),
+            ),
+            Text("Searching")
+          ],
         );
         break;
       case FetchStatus.FETCHING:
@@ -91,10 +97,16 @@ class _DiscoveryState extends State<Discovery> {
             });
         break;
       case FetchStatus.CONNECTION_ERROR:
-        _child = Column(
+        _child = Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[Text("Dock Broken")],
+          children: <Widget>[
+            Icon(Icons.signal_wifi_off),
+            Padding(
+              padding: EdgeInsets.only(left: 12),
+            ),
+            Text("Dock Broken")
+          ],
         );
         break;
       default:
