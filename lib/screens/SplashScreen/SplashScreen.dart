@@ -88,7 +88,7 @@ class _SplashScreenState extends State<SplashScreen>
               alignment: Alignment.center,
               child: FadeTransition(
                 opacity: _animation,
-                child: new CustomIcon(size: 220),
+                child: new CustomIcon(size: 200),
               )),
           new Container(
             alignment: Alignment.bottomCenter,

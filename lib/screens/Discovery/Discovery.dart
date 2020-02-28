@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:radlet_composer/util/apis/discovery.dart';
 import 'package:radlet_composer/util/data/Device.dart';
 import 'widgets/DeviceListItem.dart';
+import 'widgets/FetchStatus.dart';
 
 class Discovery extends StatefulWidget {
   const Discovery({
@@ -22,16 +23,20 @@ class Discovery extends StatefulWidget {
 class _DiscoveryState extends State<Discovery> {
   List<Device> _devices;
   var _timer;
+  FetchStatus _fetchStatus;
 
   @override
   void initState() {
     _devices = new List<Device>();
+    _fetchStatus = FetchStatus.NONE;
     super.initState();
 
     _timer = Timer.periodic(const Duration(seconds: 3), (Timer timer) {
       getDiscoveredList().then((fetchedDevices) {
-        updateDeviceList(fetchedDevices);
+        _updateDeviceList(fetchedDevices);
+        _updateFetchStatus(FetchStatus.FETCHING);
       }).catchError((onError) {
+        _updateFetchStatus(FetchStatus.CONNECTION_ERROR);
         print(onError);
       });
     });
@@ -43,14 +48,20 @@ class _DiscoveryState extends State<Discovery> {
     super.dispose();
   }
 
-  void updateDeviceList(List<Device> newDeviceList) {
+  void _updateFetchStatus(FetchStatus status) {
+    setState(() {
+      _fetchStatus = status;
+    });
+  }
+
+  void _updateDeviceList(List<Device> newDeviceList) {
     // TODO: Add a compasion mechanism
     setState(() {
       _devices = newDeviceList;
     });
   }
 
-  void clearDeviceList() {
+  void _clearDeviceList() {
     setState(() {
       _devices = [];
     });
@@ -58,6 +69,37 @@ class _DiscoveryState extends State<Discovery> {
 
   @override
   Widget build(BuildContext context) {
+    Widget _child;
+    switch (_fetchStatus) {
+      case FetchStatus.NONE:
+        _child = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[Text("Searching")],
+        );
+        break;
+      case FetchStatus.FETCHING:
+        _child = ListView.builder(
+            itemCount: _devices.length,
+            itemBuilder: (BuildContext context, int index) {
+              return new DeviceListItem(
+                id: _devices[index].id,
+                type: _devices[index].type,
+                title: _devices[index].title,
+                description: _devices[index].description,
+              );
+            });
+        break;
+      case FetchStatus.CONNECTION_ERROR:
+        _child = Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[Text("Dock Broken")],
+        );
+        break;
+      default:
+    }
+
     return Scaffold(
       appBar: AppBar(
           title: const Text("New Devices"),
@@ -65,17 +107,7 @@ class _DiscoveryState extends State<Discovery> {
             icon: Icon(Icons.arrow_back),
             onPressed: () => Navigator.pop(context),
           )),
-      body: Center(
-          child: new ListView.builder(
-              itemCount: _devices.length,
-              itemBuilder: (BuildContext context, int index) {
-                return new DeviceListItem(
-                  id: _devices[index].id,
-                  type: _devices[index].type,
-                  title: _devices[index].title,
-                  description: _devices[index].description,
-                );
-              })),
+      body: Center(child: _child),
     );
   }
 }
