@@ -36,6 +36,7 @@ class _DiscoveryState extends State<Discovery> {
         _updateDeviceList(fetchedDevices);
         _updateFetchStatus(FetchStatus.FETCHING);
       }).catchError((onError) {
+        _clearDeviceList();
         _updateFetchStatus(FetchStatus.CONNECTION_ERROR);
         print(onError);
       });
@@ -85,16 +86,30 @@ class _DiscoveryState extends State<Discovery> {
         );
         break;
       case FetchStatus.FETCHING:
-        _child = ListView.builder(
-            itemCount: _devices.length,
-            itemBuilder: (BuildContext context, int index) {
-              return new DeviceListItem(
-                id: _devices[index].id,
-                type: _devices[index].type,
-                title: _devices[index].title,
-                description: _devices[index].description,
-              );
-            });
+        if (_devices.length == 0) {
+          _child = Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Icon(Icons.location_disabled),
+              Padding(
+                padding: EdgeInsets.only(left: 12),
+              ),
+              Text("No Devices Found")
+            ],
+          );
+        } else {
+          _child = ListView.builder(
+              itemCount: _devices.length,
+              itemBuilder: (BuildContext context, int index) {
+                return new DeviceListItem(
+                  id: _devices[index].id,
+                  type: _devices[index].type,
+                  title: _devices[index].title,
+                  description: _devices[index].description,
+                );
+              });
+        }
         break;
       case FetchStatus.CONNECTION_ERROR:
         _child = Row(
@@ -105,7 +120,7 @@ class _DiscoveryState extends State<Discovery> {
             Padding(
               padding: EdgeInsets.only(left: 12),
             ),
-            Text("Dock Broken")
+            Text("Dock Unreachable")
           ],
         );
         break;
