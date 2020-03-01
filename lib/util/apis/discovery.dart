@@ -26,3 +26,17 @@ Future<List<Device>> getDiscoveredList(
     return Future.error("Dock Unreachable");
   }
 }
+
+Future<void> postAttachDevice(
+    [Map<String, String> data = const {}]) async {
+  try {
+    var response = await helper.makePostRequest(urls.NODE_ATTACH_ENDPOINT, data);
+    if (response.statusCode != 200) {
+      return Future.error("Server Error $response.statusCode");
+    }
+
+    return;
+  } catch (error) {
+    return Future.error("Dock Unreachable");
+  }
+}

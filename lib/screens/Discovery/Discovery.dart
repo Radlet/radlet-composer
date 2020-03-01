@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
+import 'package:radlet_composer/widgets/ErrorScreen.dart';
 import 'package:radlet_composer/util/apis/discovery.dart';
 import 'package:radlet_composer/util/data/Device.dart';
 import 'widgets/DeviceListItem.dart';
@@ -68,22 +69,24 @@ class _DiscoveryState extends State<Discovery> {
     });
   }
 
+  void _onAttachRequest(String id) {
+    print("request sent for attachment: $id");
+
+    Map<String, String> data = new Map();
+    data["id"] = id;
+    postAttachDevice(data).then((response) {
+      print("request sent");
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget _child;
     switch (_fetchStatus) {
       case FetchStatus.NONE:
-        _child = Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Icon(Icons.graphic_eq),
-            Padding(
-              padding: EdgeInsets.only(left: 12),
-            ),
-            Text("Searching")
-          ],
-        );
+        _child = ErrorScreen(Icons.graphic_eq, "Searching");
         break;
       case FetchStatus.FETCHING:
         if (_devices.length == 0) {
@@ -107,33 +110,23 @@ class _DiscoveryState extends State<Discovery> {
                   type: _devices[index].type,
                   title: _devices[index].title,
                   description: _devices[index].description,
+                  onAttachRequest: _onAttachRequest,
                 );
               });
         }
         break;
       case FetchStatus.CONNECTION_ERROR:
-        _child = Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Icon(Icons.signal_wifi_off),
-            Padding(
-              padding: EdgeInsets.only(left: 12),
-            ),
-            Text("Dock Unreachable")
-          ],
-        );
+        _child = ErrorScreen(Icons.signal_wifi_off, "Dock Unreachable");
         break;
       default:
     }
 
     return Scaffold(
       appBar: AppBar(
-          title: const Text("New Devices"),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-          )),
+        icon: Icon(Icons.arrow_back),
+        onPressed: () => Navigator.pop(context),
+      )),
       body: Center(child: _child),
     );
   }

@@ -82,7 +82,8 @@ class _SplashScreenState extends State<SplashScreen>
       body: Stack(
         children: <Widget>[
           new Container(
-            decoration: BoxDecoration(color: Colors.black38),
+            decoration:
+                BoxDecoration(color: Theme.of(context).scaffoldBackgroundColor),
           ),
           new Container(
               alignment: Alignment.center,

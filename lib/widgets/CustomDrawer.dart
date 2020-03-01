@@ -6,24 +6,33 @@ class CustomDrawer extends StatelessWidget {
     return Drawer(
         child: SafeArea(
       child: Container(
+        color: Colors.grey[750],
         decoration: BoxDecoration(
             border: Border(right: BorderSide(width: 1.0, color: Colors.white))),
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: null,
-              decoration: BoxDecoration(
-                color: Colors.black38,
-              ),
-            ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    
+                  ],
+                ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      colorFilter: ColorFilter.mode(Colors.black54, BlendMode.dstATop),
+                      image: AssetImage('assets/images/drawer_background.png'),
+                      fit: BoxFit.cover),
+                )),
             ListTile(
               leading: Padding(
                 padding: EdgeInsets.only(left: 40),
                 child: Icon(Icons.search),
               ),
               title: Text(
-                "Discover Devices",
+                "Discover Nodes",
                 style: TextStyle(fontSize: 16),
               ),
               onTap: () => Navigator.of(context).popAndPushNamed('/discovery'),
@@ -39,6 +48,7 @@ class CustomDrawer extends StatelessWidget {
               ),
               onTap: () => {},
             ),
+            Divider(),
             ListTile(
               leading: Padding(
                 padding: EdgeInsets.only(left: 40),
