@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 
 class DeviceListItem extends StatelessWidget {
   DeviceListItem(
-      {this.id, this.type, this.title, this.description, this.onAttachRequest});
+      {this.id,
+      this.type,
+      this.title,
+      this.description,
+      this.attached,
+      this.onAttachRequest});
 
   final String id;
   final String type;
   final String title;
   final String description;
+  final bool attached;
   final Function(String id) onAttachRequest;
 
   @override
@@ -25,8 +31,7 @@ class DeviceListItem extends StatelessWidget {
                   children: <Widget>[Icon(Icons.album)],
                 ),
                 title: Padding(
-                    padding: EdgeInsets.only(top: 10),
-                    child: Text(this.title)),
+                    padding: EdgeInsets.only(top: 10), child: Text(this.title)),
                 subtitle: Padding(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   child: Text(
@@ -39,7 +44,10 @@ class DeviceListItem extends StatelessWidget {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(left: 32),
-                      child: Icon(Icons.texture),
+                      child: Icon(
+                        Icons.texture,
+                        color: attached ? Colors.green : Colors.red,
+                      ),
                     )
                   ],
                 ))

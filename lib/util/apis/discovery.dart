@@ -18,7 +18,7 @@ Future<List<Device>> getDiscoveredList(
     if (parsedJson["devices"] is List) {
       for (var item in parsedJson["devices"]) {
         devices.add(new Device(
-            item["id"], item["type"], item["title"], item["description"]));
+            item["id"], item["type"], item["title"], item["description"], item["attached"].toLowerCase() == "true"));
       }
     }
     return devices;

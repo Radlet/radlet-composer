@@ -110,6 +110,7 @@ class _DiscoveryState extends State<Discovery> {
                   type: _devices[index].type,
                   title: _devices[index].title,
                   description: _devices[index].description,
+                  attached: _devices[index].attached,
                   onAttachRequest: _onAttachRequest,
                 );
               });
