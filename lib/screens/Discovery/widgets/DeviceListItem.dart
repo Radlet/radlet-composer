@@ -7,7 +7,8 @@ class DeviceListItem extends StatelessWidget {
       this.title,
       this.description,
       this.attached,
-      this.onAttachRequest});
+      this.onAttachRequest,
+      this.onDetachRequest});
 
   final String id;
   final String type;
@@ -15,6 +16,7 @@ class DeviceListItem extends StatelessWidget {
   final String description;
   final bool attached;
   final Function(String id) onAttachRequest;
+  final Function(String id) onDetachRequest;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class DeviceListItem extends StatelessWidget {
       child: Card(
         child: InkWell(
           onTap: () {
-            onAttachRequest(id);
+            attached ? onDetachRequest(id) : onAttachRequest(id);
           },
           child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
             ListTile(

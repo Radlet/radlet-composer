@@ -81,6 +81,18 @@ class _DiscoveryState extends State<Discovery> {
     });
   }
 
+  void _onDetachRequest(String id) {
+    print("request sent for detachment: $id");
+
+    Map<String, String> data = new Map();
+    data["id"] = id;
+    postDetachDevice(data).then((response) {
+      print("request sent");
+    }).catchError((error) {
+      print(error);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget _child;
@@ -112,6 +124,7 @@ class _DiscoveryState extends State<Discovery> {
                   description: _devices[index].description,
                   attached: _devices[index].attached,
                   onAttachRequest: _onAttachRequest,
+                  onDetachRequest: _onDetachRequest
                 );
               });
         }
